@@ -7,8 +7,6 @@ class CreateCoffers < ActiveRecord::Migration[5.1]
       t.integer :asset_size
       t.string :asset_info
       t.datetime :date
-      t.references :user, foreign_key: true
-
       t.timestamps
     end
   end
