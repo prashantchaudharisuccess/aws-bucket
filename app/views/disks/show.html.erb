@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Attachment:</strong>
+  <%= @disk.attachment %>
+</p>
+<p>
+  <%= button_to "Download",@disk.attachment %>
+</p>
+
+<%= link_to 'Edit', edit_disk_path(@disk) %> |
+<%= link_to 'Back', disks_path %>
