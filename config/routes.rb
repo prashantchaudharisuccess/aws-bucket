@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'root/coffer/new'
   get '/signedinuserprofile' => 'profiles#signedinuserprofile' 
   get '/registrationnew' => 'devise/registrations#new'
+  post '/disks/:disk_id/disk_file_upload/:disk_name', to: 'disks#upload_file', as: 'upload_file'
   resources :disks
   resources :bucket_files
   get '/files/disk/move_file_form/:disk_name/:file_name', to: 'bucket_files#move_file_form', as: 'move_file_form'

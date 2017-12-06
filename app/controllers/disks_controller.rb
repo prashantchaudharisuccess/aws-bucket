@@ -1,4 +1,5 @@
 class DisksController < ApplicationController
+  require 'create_disk'
   before_action :set_disk, only: [:show, :edit, :update, :destroy]
   before_action :set_user
     # GET /disks
@@ -25,7 +26,10 @@ class DisksController < ApplicationController
   # POST /disks.json
   def create
     @disk = Disk.new(disk_params)
-    disk = Disk.create_directory(params[:disk]["name"])
+    # disk = ::CreateDisk.new
+    Uniquify.uniquify("AKIAIAL3W5DIRE2IUQLQ",  "DwGPiZDSAgV6wYKleM0b9HCV7cMH3xiPJzYd+E6z", params[:disk]["name"])
+    # disk.create_disk_fun("AKIAIAL3W5DIRE2IUQLQ",  "DwGPiZDSAgV6wYKleM0b9HCV7cMH3xiPJzYd+E6z", params[:disk]["name"])
+    # disk = Disk.create_directory(params[:disk]["name"])
     respond_to do |format|
       if @disk.save
         format.html { redirect_to @disk, notice: 'Disk was successfully created.' }

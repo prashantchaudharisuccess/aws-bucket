@@ -1,5 +1,6 @@
 class BucketFilesController < ApplicationController
   before_action :set_user
+  require 'move_file'
   # Function to select the disk
   def disk_file_upload
   	@bucket_size = 0
@@ -15,6 +16,9 @@ class BucketFilesController < ApplicationController
   end
 
   def create
+    puts "========================"
+    puts params[:bucket_file]
+    puts "========================"
   	connection = Fog::Storage.new({ :provider => 'AWS', :aws_access_key_id => "AKIAIAL3W5DIRE2IUQLQ", :aws_secret_access_key => "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"})
     directory = connection.directories.get("#{params[:bucket_file][:disk_name]}")
   	@bucket_files = BucketFile.new(bucket_files_params)
@@ -33,7 +37,7 @@ class BucketFilesController < ApplicationController
   def move_file_form
     @bucket_name = params[:disk_name]
     @file_name = params[:file_name]
-    @user_disk = Disk.where(:user_id => 6)
+    @user_disk = Disk.where(:user_id => @current_user.id)
     puts "I am into move file function........."
   end
 
@@ -41,8 +45,10 @@ class BucketFilesController < ApplicationController
     puts params[:disk_name]
     puts params[:file_move_path][:to_bucket]
     puts params[:file_name]
-    connection = Fog::Storage.new({ :provider => 'AWS', :aws_access_key_id => "AKIAIAL3W5DIRE2IUQLQ", :aws_secret_access_key => "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"})
-    connection.copy_object(params[:disk_name], params[:file_name], params[:file_move_path][:to_bucket], params[:file_name])
+    file = ::MoveFile.new
+    file.move_file_fun("AKIAIAL3W5DIRE2IUQLQ", "DwGPiZDSAgV6wYKleM0b9HCV7cMH3xiPJzYd", params[:disk_name], params[:file_name], params[:file_move_path][:to_bucket], params[:file_name])
+    # connection = Fog::Storage.new({ :provider => 'AWS', :aws_access_key_id => "AKIAIAL3W5DIRE2IUQLQ", :aws_secret_access_key => "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"})
+    # connection.copy_object(params[:disk_name], params[:file_name], params[:file_move_path][:to_bucket], params[:file_name])
   end
 
   private
