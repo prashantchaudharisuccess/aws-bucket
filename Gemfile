@@ -59,5 +59,5 @@ gem 'filesize', '~> 0.1.1'
 gem 'devise'
 gem 'bootstrap_sb_admin_base_v2'
 gem 'pg'
-gem 'uniquify', '~> 0.0.2'
+# gem 'uniquify', '~> 0.0.2'
 
